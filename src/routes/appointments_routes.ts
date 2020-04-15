@@ -5,6 +5,15 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
 
+// Modelo SoC = Separation of concerns (separação de preocupações)
+// Pesquisar todos os agendamentos
+appointmentsRouter.get('/', (request, response) => {
+  const appointments = appointmentsRepository.all();
+
+  return response.json(appointments);
+});
+
+// Criar agendamento
 appointmentsRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
 
@@ -20,7 +29,10 @@ appointmentsRouter.post('/', (request, response) => {
       .json({ message: 'Este horário já possui um agendamento' });
   }
 
-  const appointment = appointmentsRepository.create(provider, parsedDate);
+  const appointment = appointmentsRepository.create({
+    provider,
+    date: parsedDate,
+  });
 
   return response.json(appointment);
 });
