@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-
 import { sign } from 'jsonwebtoken';
+import authConfig from '../config/auth';
 
 import User from '../models/User';
 
@@ -31,10 +31,11 @@ class AuthenticateUserService {
       throw new Error('email/password incorretos.');
     }
 
-    // palavra chave = mamãe é o topo do mundo
-    const token = sign({}, 'ac13eb306d8509ea3cd082963b4dc79e', {
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: '180d',
+      expiresIn,
     });
     return { user, token };
   }
