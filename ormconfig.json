@@ -20,8 +20,8 @@
   {
     "name": "mongo",
     "type": "mongodb",
-    "host": "27017",
-    "port": 5432,
+    "host": "localhost",
+    "port": 27017,
     "database": "svip_mongo",
     "useUnifiedTopology": true,
     "entities": [
