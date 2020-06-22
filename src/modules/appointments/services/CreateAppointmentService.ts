@@ -24,7 +24,7 @@ class CreateAppointmentService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-  ) {}
+  ) { }
 
   public async execute({
     date,
@@ -49,6 +49,7 @@ class CreateAppointmentService {
 
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
+      provider_id,
     );
 
     if (findAppointmentInSameDate) {
